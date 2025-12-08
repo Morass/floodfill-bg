@@ -1,0 +1,13 @@
+[project]
+name = "floodfill-bg"
+version = "0.1.0"
+description = "Flood-fill background removal tool"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "Pillow>=10.0.0",
+    "click>=8.0.0",
+]
+
+[project.scripts]
+floodfill-bg = "floodfill_bg:main"
