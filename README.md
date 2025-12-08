@@ -5,7 +5,7 @@ Flood-fill background removal tool. Removes background by starting from seed poi
 ## Install
 
 ```bash
-git clone <repo>
+git clone https://github.com/Morass/floodfill-bg
 cd floodfill-bg
 pip install .
 ```
