@@ -44,7 +44,7 @@ floodfill-bg jewel.png --seed 10%,10% --trim
 ### Auto-corners
 
 ```bash
-floodfill-bg cross.png --auto-corners
+floodfill-bg cross.png --auto-corners -t 100
 ```
 
 | Input | Output |
