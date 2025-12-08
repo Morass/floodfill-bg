@@ -11,7 +11,7 @@ from pathlib import Path
 import click
 from PIL import Image
 
-from libs.common import get_corner_seeds, parse_seed, trim_transparent
+from libs.common import get_corner_seeds, normalize_transparency, parse_seed, trim_transparent
 from libs.removal import floodfill_remove, global_purge
 from libs.validation import validate_input_file, validate_seeds, validate_threshold
 
@@ -136,7 +136,7 @@ def main(
         click.echo(f"{input_path.name}: {width}x{height}, {image.mode}")
         return
 
-    validate_seeds(seeds, auto_corners)
+    validate_seeds(seeds, auto_corners, trim)
     if global_mode and eight_way:
         raise click.UsageError("--8-way cannot be used with --global")
 
@@ -154,10 +154,16 @@ def main(
 
     print_header(input_path, output_as_path, width, height, mode_str, threshold, eight_way, trim, seed_points)
 
-    if global_mode:
-        result, removed = global_purge(image, seed_points, threshold)
+    # Perform background removal (if seeds provided)
+    if seed_points:
+        if global_mode:
+            result, removed = global_purge(image, seed_points, threshold)
+        else:
+            result, removed = floodfill_remove(image, seed_points, threshold, eight_way)
     else:
-        result, removed = floodfill_remove(image, seed_points, threshold, eight_way)
+        # No seeds: convert to RGBA and normalize semi-transparent to fully transparent
+        result = image.convert("RGBA") if image.mode != "RGBA" else image
+        result, removed = normalize_transparency(result)
 
     final_width, final_height = result.size
     bbox = None

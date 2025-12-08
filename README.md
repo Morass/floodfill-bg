@@ -31,6 +31,18 @@ pip install .
 
 ## Examples
 
+### Trim only
+
+Trim transparent edges without any background removal (no seeds required):
+
+```bash
+floodfill-bg cube.png --trim
+```
+
+| Input | Output |
+|-------|--------|
+| ![Input](assets/cube.png) | ![Output](assets/cube_trimmed.png) |
+
 ### Seed + trim
 
 ```bash

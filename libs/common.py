@@ -90,6 +90,34 @@ def get_corner_seeds(width: int, height: int) -> list[tuple[int, int]]:
     ]
 
 
+def normalize_transparency(image: Image.Image, threshold: int = 50) -> tuple[Image.Image, int]:
+    """ Convert semi-transparent pixels to fully transparent.
+
+        Args:
+            image (Image.Image): PIL Image to process.
+            threshold (int): Alpha threshold. Pixels with alpha <= threshold become fully transparent.
+
+        Returns:
+            tuple[Image.Image, int]: Tuple of (processed_image, normalized_pixel_count).
+    """
+    if image.mode != "RGBA":
+        image = image.convert("RGBA")
+
+    pixels = image.load()
+    width, height = image.size
+    normalized = 0
+
+    for y in range(height):
+        for x in range(width):
+            r, g, b, a = pixels[x, y]
+            if 0 < a <= threshold:
+                # Only count pixels that actually changed (were not already fully transparent)
+                pixels[x, y] = (0, 0, 0, 0)
+                normalized += 1
+
+    return image, normalized
+
+
 def trim_transparent(image: Image.Image) -> tuple[Image.Image, tuple[int, int, int, int]]:
     """ Trim transparent edges from image.
 
@@ -106,7 +134,9 @@ def trim_transparent(image: Image.Image) -> tuple[Image.Image, tuple[int, int, i
     if image.mode != "RGBA":
         image = image.convert("RGBA")
 
-    bbox = image.getbbox()
+    # Get bounding box based on alpha channel only
+    alpha = image.split()[-1]
+    bbox = alpha.getbbox()
 
     if bbox is None:
         return image, (0, 0, image.width, image.height)

@@ -59,15 +59,16 @@ def validate_input_file(ctx: click.Context, param: click.Parameter, value: str) 
     return path
 
 
-def validate_seeds(seeds: tuple[str, ...], auto_corners: bool) -> None:
-    """ Validate that at least one seed source is provided.
+def validate_seeds(seeds: tuple[str, ...], auto_corners: bool, trim: bool) -> None:
+    """ Validate that at least one seed source is provided (unless trim-only mode).
 
         Args:
             seeds (tuple[str, ...]): Tuple of seed coordinate strings.
             auto_corners (bool): Whether auto-corners flag is set.
+            trim (bool): Whether trim flag is set.
 
         Raises:
-            click.UsageError: If neither seeds nor auto_corners provided.
+            click.UsageError: If neither seeds nor auto_corners provided and trim is not set.
     """
-    if not seeds and not auto_corners:
-        raise click.UsageError("Must specify at least one --seed and/or use --auto-corners")
+    if not seeds and not auto_corners and not trim:
+        raise click.UsageError("Must specify at least one --seed and/or use --auto-corners (or use --trim for trim-only mode)")
