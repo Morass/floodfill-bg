@@ -39,7 +39,7 @@ Trim transparent edges without any background removal (no seeds required):
 floodfill-bg cube.png --trim
 ```
 
-| Input | Output |
+| Input<br>![](https://img.shields.io/badge/1781×1781-blue) | Output<br>![](https://img.shields.io/badge/1390×1331-green) |
 |-------|--------|
 | ![Input](assets/cube.png) | ![Output](assets/cube_trimmed.png) |
 
@@ -49,7 +49,7 @@ floodfill-bg cube.png --trim
 floodfill-bg jewel.png --seed 10%,10% --trim
 ```
 
-| Input | Output |
+| Input<br>![](https://img.shields.io/badge/1024×1024-blue) | Output<br>![](https://img.shields.io/badge/723×760-green) |
 |-------|--------|
 | ![Input](assets/jewel_green_bg.png) | ![Output](assets/jewel_cleaned.png) |
 
@@ -59,7 +59,7 @@ floodfill-bg jewel.png --seed 10%,10% --trim
 floodfill-bg cross.png --auto-corners -t 100
 ```
 
-| Input | Output |
+| Input<br>![](https://img.shields.io/badge/347×566-blue) | Output<br>![](https://img.shields.io/badge/347×566-green) |
 |-------|--------|
 | ![Input](assets/planks_demo.png) | ![Output](assets/planks_cleaned.png) |
 
@@ -69,6 +69,6 @@ floodfill-bg cross.png --auto-corners -t 100
 floodfill-bg demo.png --seed 0,0 --global
 ```
 
-| Input | Output |
+| Input<br>![](https://img.shields.io/badge/950×1024-blue) | Output<br>![](https://img.shields.io/badge/950×1024-green) |
 |-------|--------|
 | ![Input](assets/demo_with_background.png) | ![Output](assets/demo_global_result.png) |
