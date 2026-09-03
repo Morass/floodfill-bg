@@ -11,9 +11,9 @@ from pathlib import Path
 import click
 from PIL import Image
 
-from libs.common import get_corner_seeds, normalize_transparency, parse_seed, trim_transparent
-from libs.removal import floodfill_remove, global_purge
-from libs.validation import validate_input_file, validate_seeds, validate_threshold
+from floodfill_bg_libs.common import get_corner_seeds, normalize_transparency, parse_seed, trim_transparent
+from floodfill_bg_libs.removal import floodfill_remove, global_purge
+from floodfill_bg_libs.validation import validate_input_file, validate_seeds, validate_threshold
 
 
 def print_header(
